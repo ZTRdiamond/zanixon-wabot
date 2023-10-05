@@ -1,0 +1,3 @@
+# ZanixonMD - Whatsapp Bot
+
+This is a recoded bot from bot [hisoka-waweb.js](https://github.com/Hisoka-Morrou/hisoka-waweb.js), the parts that I recode are quite a lot, especially the command handler which I changed so that it can read files in subfolders and change the command categorization from folder to command.type from the command option, this bot code is still quite stable running on [wwebjs](https://github.com/pedroslopez/whatsapp-web.js) so I recode it.
