@@ -4,10 +4,9 @@ module.exports = {
     name: "instagram",
     alias: ["ig","igdl","instagramdl"],
     type: "downloader",
-    disable: true,
     code: async(zanixon, m, { text, zn, sender }) => {
         const { igApi, getCookie } = require("insta-fetcher");
-        let cookie = await getCookie("zanixon.group", "@zanixongroup2022");
+        let cookie = zn.get("igCookie", null, "config", true);
         const ig = new igApi(cookie);
         let urlpost = text;
         if(!urlpost) {

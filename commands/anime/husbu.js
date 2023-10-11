@@ -3,8 +3,10 @@ const axios = require('axios');
 
 module.exports = {
     name: "husbu",
-    desc: "Send random husbu image",
-    type: "random",
+    details: { 
+        desc: "Send random husbu image"
+    },
+    type: "anime",
     code: async(zanixon, m, { utils }) => {
         try {
            const response = await axios.get('https://ztrdiamond.github.io/free-json-data/anime/husbu.json');

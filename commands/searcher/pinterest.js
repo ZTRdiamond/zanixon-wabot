@@ -3,7 +3,7 @@ const { MessageMedia } = require("whatsapp-web.js");
 module.exports = {
    name: "pinterest",
    alias: ["pins","pin"],
-   type: "random",
+   type: "searcher",
    code: async(zanixon, m, { text, axios, sender, zn }) => {
       if(!text) {
          m.reply(zn.emoji("alert") + "Mana query nya, apa yang mau kamu cari?");

@@ -33,7 +33,8 @@ zn.variable({
     stickerAuthor: "© ZanixonMD",
     menuImage: "https://pomf.lain.la/f/0x18bmef.jpg",
     owner: false,
-    botAdmin: false
+    botAdmin: false,
+    igCookie: ""
 }, "config");
 
 //var default
@@ -95,8 +96,9 @@ global.mess = (type, m) => {
         dead: `${zn.emoji("alert")}︱Fitur ini sedang dimatikan!`,
         media: `${zn.emoji("alert")}︱Reply media nya`,
         error: `${zn.emoji("failed")}︱Tidak ada hasil yang ditemukan`,
-        premium: `${zn.emoji("alert")}︱Fitur ini khusus user premium!`,
-        limit: `${zn.emoji("alert")}︱Limit kamu telah habis untuk melakukan request command ini!`
+        premium: `${zn.emoji("alert")}︱Fitur ini khusus user premium!\n\nMinat jadi pengguna premium? cek keuntungan nya dengan ketik *.premium*`,
+        limit: `${zn.emoji("alert")}︱Limit kamu telah habis untuk melakukan request command ini!`,
+        nsfw: `${zn.emoji("alert")}︱Command *Nsfw* dalam mode *Off* di chat ini!`
     }[type]
     if (msg) return m.reply(msg)
 }
@@ -107,7 +109,7 @@ global.options = {
     public: zn.get("public", null, "config", true)
 }
 
-global.owner = ["6285888213719","6285781151132"]
+global.owner = ["6285888213719","62856971039020"]
 global.sessionName = "zanixon"
 global.packname = zn.get("stickerPackname", null, "config", true);
 global.author = zn.get("stickerAuthor", null, "config", true);

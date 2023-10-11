@@ -32,14 +32,12 @@ app.listen(port, () => {
 global.api = (name, path = '/', query = {}, apikeyqueryname) => (name in global.APIs ? global.APIs[name] : name) + path + (query || apikeyqueryname ? '?' + new URLSearchParams(Object.entries({ ...query, ...(apikeyqueryname ? { [apikeyqueryname]: global.APIKeys[name in global.APIs ? global.APIs[name] : name] } : {}) })) : '')
 global.opts = new Object(yargs(process.argv.slice(2)).exitProcess(false).parse())
 
-// command handler
 const loadCommands = () => {
     let dir = path.join(__dirname, "./commands");
     let rawType = new Set();
     let listType = [];
     let listCommand = {};
     try {
-        // support load command on subfolder everywhere in dir path
         let files = glob.sync(`${dir}/**/*.js`);
         console.log("Starting to load all commands...".info);
         let cmdCount = 1;
@@ -58,6 +56,7 @@ const loadCommands = () => {
                  },
                  type: command.type ? command.type : "others",
                  isMedia: command.isMedia ? command.isMedia : false,
+                 isNsfw: command.isNsfw ? command.isNsfw : false,
                  isOwner: command.isOwner ? command.isOwner : false,
                  isGroup: command.isGroup ? command.isGroup : false,
                  isPrivate: command.isPrivate ? command.isPrivate : false,
@@ -73,8 +72,7 @@ const loadCommands = () => {
              }
              listCommand[groups].push(options)
              Commands.set(options.name, options)
-             
-             // commands will be categorized by the type of command option
+             //Commands.type = command.filter(v => v !== "_").map(v => v);
              const theType = command.type ? command.type : "others";
              if(!rawType.has(theType)) {
                  rawType.add(theType);
@@ -88,12 +86,10 @@ const loadCommands = () => {
     } catch(e) {
         console.error(e) 
     }
-    // save the command and type
     Commands.list = listCommand;
     Commands.type = listType;
 }
 
-// function to load the client
 async function connect() {
     await loadCommands()
     const zanixon = new Client({
@@ -125,9 +121,7 @@ async function connect() {
 
     zanixon.on("ready", () => {
         console.clear();
-        console.log(chalk.greenBright("Client Is Already Running!"));
-        console.log(`➭ Total command: ${zn.get("commandCount", null, null, true)} loaded\n➭ Owner: ${global.owner}`.warn);
-        console.log(`・------------------------------------------`.debug)
+        console.log(chalk.greenBright("Client Is Already Running!"))
     })
 
     zanixon.on("disconnected", async(reason) => {
@@ -153,7 +147,6 @@ async function connect() {
         require("./zanixon_group")(zanixon, action)
     })*/
     
-    // simsimi auto reply
     zanixon.on('message', async(m) => {
         const { simi } = require("./lib/utils.js");
         const zn = require('zanixon.db');
@@ -162,10 +155,13 @@ async function connect() {
         const isGroup = from.endsWith("@g.us");
         var prefix = body.match(/^[+=!?#$%.]/gi) || '.';
         const command = body.replace(prefix, '').trim().split(/ +/).shift().toLowerCase();
+    //const text = body.replace(prefix + command, '');
+    //const simi = `${utils.simi(body)}`;
         if(body.startsWith(prefix + command) == false && isGroup == false) {
             if(zn.getVar("simi", sender, null, "default", true) == true) {
-                const simiResult = await simi(body);
-                m.reply(`*Pesan dari Simi:*\n${simiResult}`);
+                const simiResult = await simi(body); // menunggu hasil Promise
+                m.reply(`*Pesan dari Simi:*
+${simiResult}`);
             }
         }
     });

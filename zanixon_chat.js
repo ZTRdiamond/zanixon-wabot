@@ -14,19 +14,40 @@ const rm = require("./lib/readmore.js");
 module.exports = async (zanixon, m, commands) => {
     try {
         // import some important const
-        const { body, from, hasMedia: isMedia, type } =  } = m 
+        const { body, from, hasMedia: isMedia, type } = m 
         const zn = require('zanixon.db');
         const { getRandom, fetchBuffer, fetchUrl, WAVersion, clockString, isUrl, sleep, jsonformat, parseMention, isNumber } = require("./lib/Function");
         const utils = require('./lib/utils.js');
-        const readmore = rm.readmore();
+        const readmore = rm.readmore(); 
+        
+        // user message reader
+        const args = body.trim().split(/[\s\n]+/).slice(1);
+        const text = args.join(" ")
+        const quoted = m.hasQuotedMsg ? await m.getQuotedMessage() : m
+        const mime = (quoted._data || quoted).mimetype || ""
+        const listMentions = quoted.mentionedIds.map((mention) => mention._serialized) || m.mentionedIds.map((mention) => mention._serialized)
+        const metadata = await m.getChat()
+        
+        // bot user
+        const sender = m.author || m.id.remote
+        const remote = m.id.remote
+        const isRegistered = false;
+        const isPremium = zn.get("premium", sender, null, true) || false; 
+        const isBanned = zn.get("banned", sender, null, true) || zn.set("banned", false, sender, null, true);
+        const limit = zn.get("limit", sender, "default", false);
         
         // bot config
         let isPublic = zn.get("public", null, "config", true);
         var prefix = [zn.get("prefix", m.id.remote, null, true) || zn.set("prefix", ".", sender, null, true)];
-        let isCmd = body.startsWith(prefix);
         const command = body.replace(prefix, '').trim().split(/ +/).shift().toLowerCase()
-        const args = body.trim().split(/[\s\n]+/).slice(1);
         const cmd = commands.get(command) || Array.from(commands.values()).find((v) => v.alias.find((x) => x.toLowerCase() == command)) || "";
+        let isCmd = cmd.nonPrefix ? cmd.nonPrefix : body.startsWith(prefix);
+        const detraw = cmd.details || { desc: "none", usage: "%prefix%command" };
+        let uraw = detraw.usage;
+        let usage = uraw.replace(/%prefix/gi, prefix).replace(/%command/gi, cmd.name).replace(/%text/gi, text);
+        let desc = detraw.desc;
+        let details = { desc: desc, usage: usage };
+        console.log("Details: \n\n", cmd + "\n\n", details);
         
         // checker
         const isOwner = [zanixon.info.wid._serialized, ...global.owner].map(v => v.replace(/[^0-9]/g, '') + '@c.us').includes(sender)
@@ -38,21 +59,7 @@ module.exports = async (zanixon, m, commands) => {
         const groupAdmins = isGroup ? participants.filter(v => v.isAdmin && !v.isSuperAdmin).map(v => v.id._serialized) : []
         const isBotAdmin = isGroup ? groupAdmins.includes(zanixon.info.wid._serialized) : false
         const isAdmin = isGroup ? groupAdmins.includes(sender) : false 
-        
-        // bot user
-        const sender = m.author || m.id.remote
-        const remote = m.id.remote
-        const isRegistered = false;
-        const isPremium = zn.get("premium", sender, null, true) || false; 
-        const isBanned = zn.get("banned", sender, null, true) || zn.set("banned", false, sender, null, true);
-        const limit = zn.get("limit", sender, "default", false);
-        
-        // user message reader
-        const text = args.join(" ")
-        const quoted = m.hasQuotedMsg ? await m.getQuotedMessage() : m
-        const mime = (quoted._data || quoted).mimetype || ""
-        const listMentions = quoted.mentionedIds.map((mention) => mention._serialized) || m.mentionedIds.map((mention) => mention._serialized)
-        const metadata = await m.getChat()
+        const isNsfw = zn.get("isNsfw", m.id.remote, null, false);
         const groupName = isGroup ? metadata.groupMetadata.name : ""
 
         // bot mode: public || self
@@ -85,7 +92,7 @@ module.exports = async (zanixon, m, commands) => {
             }
         }
 
-        if(isCmd == false) {
+        if(isCmd == false && cmd.nonPrefix == false) {
             return;
         }
         //if (options.autoRead) (zanixon.type == "legacy") ? await zanixon.chatRead(m.key, 1) : await zanixon.sendReadReceipt(from, sender, [m.id])
@@ -94,7 +101,7 @@ module.exports = async (zanixon, m, commands) => {
         if (isCmd && !cmd) {
             //m.reply(teks)
             return;
-        } else if (!isCmd && !cmd) return 
+        } else if (!isCmd && !cmd) return
         
         // cooldown system to avoid spam
         let cdData = zn.getCooldown(sender, "{sec} detik", true);
@@ -133,6 +140,11 @@ module.exports = async (zanixon, m, commands) => {
             return global.mess("private", m)
         }
         
+        // check isPremium? 
+        if(cmd.isPremium && !isPremium) {
+            return global.mess("premium", m);
+        }
+        
         // check isBotAdmin?
         if (cmd.isBotAdmin && !isBotAdmin) {
             return global.mess("botAdmin", m)
@@ -159,9 +171,9 @@ module.exports = async (zanixon, m, commands) => {
         }
         
         // command info options
-        if (cmd.details.desc && text.endsWith("-desc")) return m.reply(cmd.desc)
-        if (cmd.details.usage && text.endsWith("-use")) {
-            return m.reply(`${cmd.example.replace(/%prefix/gi, prefix).replace(/%command/gi, cmd.name).replace(/%text/gi, text)}`)
+        if (desc && text.endsWith("-desc")) return m.reply(desc)
+        if (usage && text.endsWith("-use")) {
+            return m.reply(usage)
         }
         if(cmd.details && text.endsWith("-info")) {
             let info = `*Command Info:*
@@ -172,16 +184,21 @@ module.exports = async (zanixon, m, commands) => {
 ➭ Only Group: *${cmd.isGroup ? "🟢" : "🔴"}*
 ➭ Using Limit: *${cmd.isLimit ? "🟢" : "🔴"}*
 ➭ Only Group Admin: *${cmd.isAdmin ? "🟢" : "🔴"}*
-➭ Description: *${cmd.details.desc}*
+➭ Description: *${desc}*
 
-➭ Usage: *${cmd.details.usage}*
+➭ Usage: *${usage}*
 `;
-            m.reply(info);
+            return m.reply(info);
         } 
         
         // check isQuery?
         if (cmd.isQuery && !text) {
-            return m.reply(`${cmd.example.replace(/%prefix/gi, prefix).replace(/%command/gi, cmd.name).replace(/%text/gi, text)}`)
+            return m.reply(usage)
+        }
+        
+        // check isNsfw? 
+        if(cmd.isNsfw && isNsfw == false) {
+            return global.mess("nsfw", m);
         }
         
         // check isLimit?
@@ -198,8 +215,6 @@ module.exports = async (zanixon, m, commands) => {
             let cmdOptions = {
                 name: "ZTRdiamond",
                 limit,
-                db,
-                ir,
                 isPublic,
                 getRandom,
                 fetchBuffer, 
@@ -214,10 +229,14 @@ module.exports = async (zanixon, m, commands) => {
                 body,
                 from, 
                 zn,
+                details,
+                desc,
+                usage,
                 utils,
                 readmore,
                 cmd,
                 axios,
+                isNsfw,
                 isRegistered,
                 isPremium,
                 isMedia,

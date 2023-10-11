@@ -7,7 +7,7 @@ module.exports = {
            return;
        }
        let user = sender.replace("@c.us", "");
-       let teer = `https://trakteer.id/zanixongroup/tip?qquantity=5&display_name=${user}&supporter_message=bot+join+grup+ku+dong:+${text}`;  
+       let teer = `https://trakteer.id/zanixongroup/tip?quantity=5&display_name=${user}&supporter_message=bot+join+grup+ku+dong:+${text}`;  
        let pesan =  `*Pembelian masa aktif bot join grup*
 
 Silahkan klik link dibawah untuk melakukan pembayaran

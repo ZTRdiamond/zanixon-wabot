@@ -2,6 +2,7 @@ module.exports = {
     name: "ai",
     alias: ["gpt","chatgpt","aigpt"],
     type: "exclusive",
+    isPremium: true,
     code: async(zanixon, m, { zn, axios, sender, text }) => {
         let cooldown = zn.getCooldown("ai_" + sender, "{sec} detik") || { id: `ai_${sender}`, status: false, duration: 30, timestamp: 0, time: "0 detik" };
         if(cooldown === undefined || cooldown.status === false) {
