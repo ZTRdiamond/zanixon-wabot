@@ -1,4 +1,3 @@
-
 # ZanixonMD - Whatsapp Bot
 
 A simple whatsapp bot using command handler to manage the commands easily and have some useful features
@@ -47,7 +46,7 @@ This bot has several useful features
 |ytvideo|🟢|
 |ytaudio|🟢|
 |facebookdl|🟢|
-|instagramdl|🔴|
+|instagramdl|🟢|
 |ai|🟢|
 | ***and so on...*** |...|
 
