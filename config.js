@@ -31,7 +31,7 @@ zn.variable({
     public: true,
     stickerPackname: "Wa: +62 856-9710-3902",
     stickerAuthor: "© ZanixonMD",
-    menuImage: "https://pomf.lain.la/f/0x18bmef.jpg",
+    menuImage: "https://pomf2.lain.la/f/z2o65gj.png",
     owner: false,
     botAdmin: false,
     igCookie: ""
@@ -39,15 +39,16 @@ zn.variable({
 
 //var default
 zn.variable({
-    "cooldown":10,
+    "cooldown":15,
     "premium":false,
-    "premiumDuration":"0d 0h 0m 0s",
+    "premiumDuration":"",
     "premiumTimestamp":0,
-    "limit":20,
+    "limit":100,
     "verify":false,
     "simi":false,
     "prefix":".",
-    "banned": false
+    "banned": false,
+    "totalRequest":0
 }, "default");
 
 zn.regEmoji({

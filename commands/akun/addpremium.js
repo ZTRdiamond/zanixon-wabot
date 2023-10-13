@@ -3,12 +3,13 @@ module.exports = {
     alias: ["addprem"],
     type: "akun",
     isOwner: true,
-    code: async(zanixon, m, { utils, prefix, zn, text, isPremium, quoted }) => {
+    code: async(zanixon, m, { utils, prefix, zn, text, quoted }) => {
         let teks = text.split("|");
         let regex = /[@+]|@c\.us/g;
         let raw = teks[0].replace(regex, "");
-        let rep = raw.replace("-reply", quoted.author);
+        let rep = raw.replace("-reply", `${quoted.author}`.replace("@c.us", ""));
         let user = rep.replaceAll(regex, "") + "@c.us";
+        let isPremium = zn.get("premium", user, null, true);
         let num = user.replace(regex, "");
         if(isPremium === true) return m.reply(zn.emoji("success") + `︱Gagal menambahkan premium, Karna user sudah premium!`);
         if(teks[0] !== "" && teks[1] !== "") {

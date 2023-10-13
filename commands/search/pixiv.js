@@ -2,10 +2,10 @@ const { MessageMedia } = require("whatsapp-web.js");
 
 module.exports = {
    name: "pixiv",
-   type: "searching",
+   type: "search",
    details: {
        desc: "Search some image on pixiv",
-       usage: "%prefix%command nama_karakter|jumlah (Max 20)|nsfw? (0 = sfw, 1 = nsfw, 2 = random|ai? (0 = noAi, 1 = Ai, 2 = random)"
+       usage: "%prefix%command nama_karakter|jumlah (Max 20)|nsfw? (0 = sfw, 1 = nsfw, 2 = random)|ai? (0 = noAi, 1 = Ai, 2 = random)"
    },
    code: async(zanixon, m, { text, sender, zn, axios }) => {
       // .pixiv query|count|nsfw: opt|ai: opt
@@ -18,7 +18,7 @@ module.exports = {
          m.reply(zn.emoji("alert") + `︱Gagal melakukan request karna max mencari gambar adalah 10 saja!`);
          return;
       }
-      m.reply(zn.emoji("wait") + `︱Tunggu sebentar ya, permintaan sedang diproses!`);
+      m.reply(zn.emoji("wait") + `︱Tunggu sebentar, permintaan sedang diproses!`);
       try {
          if(teks[0] !== "") {
             let now = 0;

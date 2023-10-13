@@ -7,6 +7,7 @@ module.exports = {
     desc: "List all command",
     type: "main",
     code: async(zanixon, m, { commands, args, prefix, text, toUpper, name, utils, readmore, zn, isPublic, sender, limit }) => {
+        let thumb = zn.get("menuImage", null, "config", true);
         if (args[0]) {
             let data = []
             let name = args[0].toLowerCase()
@@ -32,7 +33,11 @@ module.exports = {
 
             for (let type of commands.type.sort()) {
                 if(type && commands.list[type] && Array.isArray(commands.list[type])) {
-                   let filt = commands.list[type].filter(v => v.disable !== true).map((cmd) => { return `┃ ❧ ${prefix + cmd.name}` });
+                   let filt = commands.list[type].filter(v => v.disable !== true).map((cmd) => {
+                       let prem = cmd.isPremium ? "🄿" : "";
+                       let lim = cmd.isLimit ? "🄻" : "";
+                       return `┃ ❧ ${prefix + cmd.name} ${prem + lim}` 
+                   });
                    let list = filt.sort();
                    teks += `\n╭╼━「 *${toUpper(type)}* 」\n`
                    teks += `${list.join("\n")}\n`
@@ -41,7 +46,8 @@ module.exports = {
             }
             //let image = zn.get("menuImage", null, "config", true);
             //let media = await MessageMedia.fromUrl(image, { unsafeMime: true })
-            zanixon.sendMessage(m.id.remote, `Halo *${m._data.notifyName}*!
+            zanixon.sendMessage(m.id.remote, `*#SAVEPALESTINE🇵🇸 - #PRAYFORPALESTINE🇵🇸*
+Halo *${m._data.notifyName}*!
 
 Sponsor bot: *J*
 Grup sponsor: https://s.id/1Ugz8
@@ -71,7 +77,7 @@ Powered by Zanixon Group™
 ctwaContext: {
 linkPreview: true,
 title: `ZanixonMD | Whatsapp Bot`,
-thumbnailUrl: "https://pomf2.lain.la/f/z2o65gj.png",
+thumbnailUrl: thumb,
 description: '© Zanixon Group All Right Reserved',
 sourceUrl: 'https://trakteer.id/zanixongroup' //grup short: https://s.id/1UIlf
              }

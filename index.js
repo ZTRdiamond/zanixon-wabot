@@ -24,7 +24,7 @@ app.post('/payment/add/:id', (req, res) => {
     res.json({msg: "success!", id: id, data: [data]});
 });
 
-let port = process.env.PORT || 9030
+let port = process.env.PORT || 9000
 app.listen(port, () => {
     console.log(`App started on port ${port}`);
 });

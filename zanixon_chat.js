@@ -43,11 +43,10 @@ module.exports = async (zanixon, m, commands) => {
         const cmd = commands.get(command) || Array.from(commands.values()).find((v) => v.alias.find((x) => x.toLowerCase() == command)) || "";
         let isCmd = cmd.nonPrefix ? cmd.nonPrefix : body.startsWith(prefix);
         const detraw = cmd.details || { desc: "none", usage: "%prefix%command" };
-        let uraw = detraw.usage;
-        let usage = uraw.replace(/%prefix/gi, prefix).replace(/%command/gi, cmd.name).replace(/%text/gi, text);
+        let usage = `${detraw.usage}`.replace(/%prefix/gi, prefix).replace(/%command/gi, command).replace(/%text/gi, text);
         let desc = detraw.desc;
         let details = { desc: desc, usage: usage };
-        console.log("Details: \n\n", cmd + "\n\n", details);
+        //console.log("Details: \n\n", command + "\n\n", details);
         
         // checker
         const isOwner = [zanixon.info.wid._serialized, ...global.owner].map(v => v.replace(/[^0-9]/g, '') + '@c.us').includes(sender)
@@ -209,8 +208,9 @@ module.exports = async (zanixon, m, commands) => {
             zn.set("limit", Math.floor(parseInt(limit) - 1), sender, null, "default", false);
             m.reply(zn.limit("alert") + `︱Limit terpakai *1* dari *${zn.abbreviate(limit, "0.00a")}*`);
         }
-
-
+        
+        let totalReq = zn.get("totalRequest", sender, null, false);
+        zn.set("totalRequest", totalReq + 1, sender, null, true);
         try {
             let cmdOptions = {
                 name: "ZTRdiamond",
