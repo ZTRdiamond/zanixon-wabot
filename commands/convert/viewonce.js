@@ -2,7 +2,7 @@ const { MessageMedia } = require("whatsapp-web.js")
 
 module.exports = {
     name: "readviewonce",
-    alias: ["viewonce","vo","svo","reup","rvo","reupload"],
+    aliases: ["viewonce","vo","svo","reup","rvo","reupload"],
     desc: "Mengirim ulang gambar dari pesan view once whatsapp",
     example: "Balas pesan view once dengan *.viewonce*",
     type: "convert",

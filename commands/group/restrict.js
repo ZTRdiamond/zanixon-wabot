@@ -3,10 +3,12 @@ const { jsonformat } = require("../../lib/Function")
 
 module.exports = {
     name: "restrict",
-    alias: ["editinfo"],
-    desc: "Set Restrict Group",
+    aliases: ["editinfo"],
     type: "group",
-    example: "List Option :\n\n1. open\n2. close\n3.buka\n4. tutup\n\nExample : %prefix%command buka",
+    details: {
+        desc: "Mengubah pengaturan editgrup menjadi semua orang atau admin saja",
+        usage: "%prefix%command buka/tutup atau open/close"
+    },
     code: async(zanixon, m, { zn, text, args }) => {
         let chat = await m.getChat()
         switch(text.toLowerCase()) {

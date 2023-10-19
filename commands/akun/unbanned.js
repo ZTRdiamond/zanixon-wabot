@@ -3,9 +3,13 @@ module.exports = {
     alias: ["unban"],
     type: "akun",
     isOwner: true,
+    details: {
+        desc: "Melakukan unbanned terhadap user!",
+        usage: "%prefix%command opt"
+    },
     code: async(zanixon, m, { zn, sender, text, quoted }) => {
         if(text === undefined || text === "") {
-            m.reply(zn.emoji("alert") + `︱Mana user yang akan dibanned?
+            m.reply(zn.emoji("alert") + `︱Mana user yang akan di unbanned?
 
 *Options:*
 ➭ mention

@@ -4,7 +4,7 @@ module.exports = {
     type: "akun",
     details: {
         desc: "Menampilkan list pengguna premium",
-        usage: "Contoh: *%prefix%command 10|1*"
+        usage: "%prefix%command (jumlah = 10)|(halaman = 1)"
     },
     code: async(zanixon, m, { zn, text, sender }) => {
         let teks = text.split("|");

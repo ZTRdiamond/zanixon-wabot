@@ -4,7 +4,7 @@ const util = require("util")
 
 module.exports = {
     name: "eval",
-    alias: [">",">>","=>"],
+    aliases: [">",">>","=>"],
     desc: "Running JavaScript Code via Command",
     type: "owner",
     code: async (zanixon, m, { name, body, from, cmd, rpg, utils, isMedia, type, sender, prefix, command, commands, args, isOwner, text, quoted, mime, isGroup, metadata, groupName, participants, groupAdmins, isBotAdmin, isAdmin, toUpper, Function, zn, isRegistered, isMsgMentioned, isQtdMentioned, listMentions, remote, readmore, getRandom, fetchBuffer, fetchUrl, WAVersion, clockString, isUrl, sleep, jsonformat, parseMention, isNumber }) => {

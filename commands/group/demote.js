@@ -4,10 +4,12 @@ const { jsonformat } = require("../../lib/Function")
 
 module.exports = {
     name: "demote",
-    alias: ["unadmin"],
-    desc: "Make Unadmin User from Group",
+    aliases: ["unadmin"],
     type: "group",
-    example: "Example : %prefix%command <tag>. <tag> = @62xxx",
+    details: {
+        desc: "Demote user dari admin",
+        usage: "%prefix%command @user"
+    },
     code: async(zanixon, m, { zn, participants }) => {
         let chat = await m.getChat()
         let members = participants.filter(v => v.isAdmin).map(v => v.id._serialized)

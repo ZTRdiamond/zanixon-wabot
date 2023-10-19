@@ -2,9 +2,12 @@ const { MessageMedia } = require('whatsapp-web.js');
 
 module.exports = {
     name: "tiktokmp3",
-    alias: ["tta", "tiktoka", "tiktokaudio", "ttaudio","ttmp3"],
-    desc: "Download tiktok audio",
+    aliases: ["tta", "tiktoka", "tiktokaudio", "ttaudio","ttmp3"],
     type: "downloader",
+    details: {
+        desc: "Download video tiktok tanpa watermark",
+        usage: "%prefix%command https://vm.tiktok.com/ZMjDmLgCT/"
+    },
     code: async (zanixon, m, { zn, text, readmore, sender }) => {
         const tiktok = require('@tobyg74/tiktok-api-dl');
         const url = text;

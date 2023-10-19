@@ -1,6 +1,6 @@
 module.exports = {
   name: "stickerwm",
-  alias: ["stikerwm", "setikerwm", "sgifwm", "swm", "wm"],
+  aliases: ["stikerwm", "setikerwm", "sgifwm", "swm", "wm"],
   desc: "Convert Image or Video To Sticker",
   example: "Example: %prefix%command packname? | author?",
   type: "convert",

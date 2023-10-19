@@ -1,9 +1,8 @@
-const iyh = require('../../lib/utils.js');
-
 module.exports = {
     name: "tes",
+    aliases: ["test"],
     type: "owner",
-    start: async(zanixon, m, { prefix, text }) => {
-        m.reply(`*Message from ${m._data.notifyName}:* \n${text}`)
+    code: async(zanixon, m, { prefix, text }) => {
+        m.reply(`*~> ${m._data.notifyName}:* ${text || "gk tau, dia gk ngetik apa² bjirr🗿"}`)
     }
 }

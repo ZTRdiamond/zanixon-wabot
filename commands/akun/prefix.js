@@ -6,7 +6,7 @@ module.exports = {
         desc: "Mengganti prefix untuk memanggil perintah bot",
         usage: "%prefix%command c!"
     },
-    code: async(zanixon, m, { sender, zn, text }) => {
+    code: async(zanixon, m, { sender, zn, text, details }) => {
         let prefix = text;
         let old = zn.get("prefix", sender, null, true);
         if(prefix) {
@@ -17,7 +17,7 @@ module.exports = {
 Old: *${old}*
 New: *${prefix}*`);
         } else {
-            m.reply(zn.emoji("failed") + "︱Gagal mengubah prefix!");
+            m.reply(zn.emoji("failed") + `︱Gagal mengubah prefix!\nContoh: *${details.usage}*`);
         }
     }
 }

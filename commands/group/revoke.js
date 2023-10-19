@@ -3,9 +3,11 @@ const { jsonformat } = require("../../lib/Function")
 
 module.exports = {
     name: "revoke",
-    alias: ["reset","resetlink"],
-    desc: "Revoke Link Group",
+    aliases: ["reset","resetlink"],
     type: "group",
+    details: {
+        desc: "Reset link grup"
+    },
     code: async(zanixon, m, { zn }) => {
         let chat = await m.getChat()
         if (chat.isGroup) {

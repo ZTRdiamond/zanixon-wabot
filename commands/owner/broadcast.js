@@ -1,6 +1,6 @@
 module.exports = {
     name: "broadcast",
-    alias: ["bc"],
+    aliases: ["bc"],
     desc: "Broadcast pesan atau media ke semua user bot",
     example: "Example: %prefix%command <pesan atau attach media>",
     isOwner: true,

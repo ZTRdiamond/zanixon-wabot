@@ -13,8 +13,9 @@ module.exports = {
              let lolis;
              const res = await axios.get('https://api.lolicon.app/setu/v2?num=1&r18=1&tag=lolicon');
              lolis = res.data.data[0];
-             let media = await MessageMedia.fromUrl(lolis.urls.original)
-             m.reply(media, null, { caption:'Ini loli sus nya kak!' });
+             /*let media = await MessageMedia.fromUrl(lolis.urls.original)
+             m.reply(media, null, { caption:'Ini loli sus nya kak!' });*/
+             m.reply(`Ini loli sus nya kak!\n${lolis.urls}`);
         } catch (error) {
              console.error('Error at get loli nsfw image: ' + error);
              m.reply(`${zn.emoji("failed")}│Gagal mengirim gambar loli!`);

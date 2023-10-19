@@ -2,8 +2,12 @@ const { MessageMedia } = require("whatsapp-web.js");
 
 module.exports = {
     name: "tiktok",
-    alias: ["tiktokdl","tt","ttdl"],
+    aliases: ["tiktokdl","tt","ttdl"],
     type: "downloader",
+    details: {
+        desc: "Download video tiktok tanpa watermark",
+        usage: "%prefix%command https://vm.tiktok.com/ZMjDmLgCT/"
+    },
     code: async(zanixon, m, { sender, zn, text, readmore }) => {
         const tiktok = require("@tobyg74/tiktok-api-dl");
         const url = text;
@@ -38,8 +42,8 @@ module.exports = {
             //console.log(caption)
             if(type === "video") {
                 m.reply(caption);
-                let video = await MessageMedia.fromUrl(data.video[0], { unsafeMime: true, filename: `${url}_di-download-menggunakan-bot-zanixonmd-6285697103902` });
-                zanixon.sendMessage(m.id.remote, video, { quotedMessageId: m.id._serialized });
+                let video = await MessageMedia.fromUrl(data.video[0], { unsafeMime: true, filename: `ZanixonMD-TIKTOKDL-Media.mp4` });
+                zanixon.sendMessage(m.id.remote, video, { quotedMessageId: m.id._serialized, sendMediaAsDocument: true, caption: `Ini video tiktok nya kak!` });
                 console.log("Success download tiktok video:", JSON.stringify({
                     user: sender,
                     name: m._data.notifyName,
@@ -54,7 +58,7 @@ module.exports = {
                 async function tiktokSlide() {
                     if(now < count) {
                         let img = data.images[now];
-                        let image = await MessageMedia.fromUrl(img, { unsafeMime: true, filename: `${url}_di-download-menggunakan-bot-zanixonmd-6285697103902` });
+                        let image = await MessageMedia.fromUrl(img, { unsafeMime: true, filename: `ZanixonMD-TIKTOKDL-Media_${now}.jpg` });
                         zanixon.sendMessage(m.id.remote, image, { quotedMessageId: m.id._serialized, caption: `Media: *${now + 1} / ${count}*` });
                         now++;
                     

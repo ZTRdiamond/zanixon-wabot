@@ -2,7 +2,7 @@ const util = require("util")
 
 module.exports = {
     name: "leave",
-    alias: ["metu","keluar"],
+    aliases: ["metu","keluar"],
     desc: "Leave From Group",
     type: "owner",
     code: async(zanixon, m) => {

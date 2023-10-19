@@ -4,10 +4,13 @@ const { jsonformat } = require("../../lib/Function")
 module.exports = {
     name: "add",
     alias: ["undang","culik"],
-    desc: "Add User From Group",
     type: "group",
-    example: "Example : %prefix%command <tag>. <tag> = @62xxx",
-    code: async(zanixon, m, { zn, quoted, text, participants }) => {
+    details: {
+        desc: "Menambahkan user ke grup",
+        usage: "%prefix%command 62xxx"
+    },
+    code: async(zanixon, m, { zn, quoted, text, participants, details }) => {
+        if(text === "") return m.reply(zn.emoji("alert") + `︱Mana nomor nya?\nContoh: *${details.usage}*`);
         let chat = await m.getChat()
         let _participants = participants.map(v => v.id._serialized)
         let users = (await Promise.all(

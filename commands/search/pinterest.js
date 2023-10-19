@@ -2,7 +2,7 @@ const { MessageMedia } = require("whatsapp-web.js");
 
 module.exports = {
    name: "pinterest",
-   alias: ["pins","pin"],
+   aliases: ["pins","pin"],
    type: "search",
    code: async(zanixon, m, { text, axios, sender, zn }) => {
       if(!text) {

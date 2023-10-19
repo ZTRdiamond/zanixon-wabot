@@ -1,6 +1,6 @@
 module.exports = {
     name: "public",
-    alias: ["selfmode"],
+    aliases: ["selfmode"],
     type: "owner",
     details: {
         desc: "Mengubah mode bot menjadi public atau self",

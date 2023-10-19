@@ -1,6 +1,6 @@
 module.exports = {
     name: "ai",
-    alias: ["gpt","chatgpt","aigpt"],
+    aliases: ["gpt","chatgpt","aigpt"],
     type: "exclusive",
     isPremium: true,
     code: async(zanixon, m, { zn, axios, sender, text }) => {

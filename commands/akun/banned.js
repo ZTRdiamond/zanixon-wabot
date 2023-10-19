@@ -1,11 +1,15 @@
 module.exports = {
     name: "banned",
-    alias: ["ban"],
+    aliases: ["ban"],
     type: "akun",
     isOwner: true,
+    details: {
+        desc: "Melakukan banned terhadap user yang melakukan abuse",
+        usage: "%prefix%command opt"
+    },
     code: async(zanixon, m, { zn, sender, text, quoted }) => {
         if(text === undefined || text === "") {
-            m.reply(zn.emoji("alert") + `︱Mana user yang akan dibanned?
+            return m.reply(zn.emoji("alert") + `︱Mana user yang akan dibanned?
 
 *Options:*
 ➭ mention

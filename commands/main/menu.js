@@ -3,10 +3,12 @@ const moment = require('moment-timezone');
 
 module.exports = {
     name: "menu",
-    alias: ["help","?","list"],
-    desc: "List all command",
+    aliases: ["help","?","list"],
     type: "main",
-    code: async(zanixon, m, { commands, args, prefix, text, toUpper, name, utils, readmore, zn, isPublic, sender, limit }) => {
+    details: {
+        desc: "Menampilkan semua command bot"
+    },
+    code: async(zanixon, m, { commands, args, prefix, text, toUpper, name, utils, readmore, zn, isPublic, sender, limit, totalRequest }) => {
         let thumb = zn.get("menuImage", null, "config", true);
         if (args[0]) {
             let data = []
@@ -70,6 +72,7 @@ Grup sponsor: https://s.id/1Ugz8
 ┃ ❧ Premium: *${zn.get("premium", sender, null, true) ? "🟢" : "🔴"}*
 ┃ ❧ Limit: *${zn.abbreviate(limit, "0.00a")}*
 ┃ ❧ Prefix: *${zn.get("prefix", sender, null, true)}*
+┃ ❧ Total Request: *${zn.abbreviate(totalRequest, "0.00a")}*
 ╰╼━━━━━━━━━━━━╾・\n` + teks + `
 \`\`\`
 Powered by Zanixon Group™

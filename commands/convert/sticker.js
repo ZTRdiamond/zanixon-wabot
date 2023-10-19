@@ -1,6 +1,6 @@
 module.exports = {
   name: "sticker",
-  alias: ["stikerr", "setiker", "sgif", "s", "stiker"],
+  aliases: ["stikerr", "setiker", "sgif", "s", "stiker"],
   desc: "Convert Image or Video To Sticker",
   type: "convert",
   isOwner: false,

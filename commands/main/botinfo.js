@@ -4,7 +4,7 @@ const path = require("path");
 
 module.exports = {
     name: "botinfo",
-    alias: ["botstatus","status"],
+    aliases: ["botstatus","status"],
     desc: "Menampilkan informasi status bot dan lain-lain",
     type: "main",
     code: async (zanixon, m, { utils }) => {

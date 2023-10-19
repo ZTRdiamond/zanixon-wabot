@@ -2167,9 +2167,10 @@ webidl-conversions@^3.0.0:
   resolved "https://registry.npmjs.org/webidl-conversions/-/webidl-conversions-3.0.1.tgz"
   integrity sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==
 
-"whatsapp-web.js@github:caliphdev/wwjs":
-  version "1.22.2-alpha.1"
-  resolved "git+ssh://git@github.com/caliphdev/wwjs.git#3d55f438699725992a4bff7b762e58be8adf6f76"
+whatsapp-web.js@^1.22.2-alpha.3:
+  version "1.22.2-alpha.3"
+  resolved "https://registry.npmjs.org/whatsapp-web.js/-/whatsapp-web.js-1.22.2-alpha.3.tgz"
+  integrity sha512-LFNdI6/LZ6CNnCAaCkmKr1Xx2OMEcrendalr3ue6aX/UHH69CFxQ0Z7UduUXHP7HD5UWnwcy1SPJTGuMrIviYQ==
   dependencies:
     "@pedroslopez/moduleraid" "^5.0.2"
     fluent-ffmpeg "^2.1.2"

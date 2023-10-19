@@ -2,7 +2,7 @@ const { MessageMedia } = require("whatsapp-web.js");
 
 module.exports = {
     name: "facebook",
-    alias: ["fb", "fbdl", "fbdownloader", "facebookdl"],
+    aliases: ["fb", "fbdl", "fbdownloader", "facebookdl"],
     type: "downloader",
     code: async(zanixon, m, { sender, text, zn }) => {
         const getFBInfo = require("@xaviabot/fb-downloader");
@@ -20,10 +20,10 @@ module.exports = {
             }
             let url = data.hd || data.sd;
             const media = await MessageMedia.fromUrl(url, { unsafeMime: true });
-            const thumb = await MessageMedia.fromUrl(data.thumbnail, { unsafeMime: true, filename: `${data.title}` });
+            const thumb = await MessageMedia.fromUrl(data.thumbnail, { unsafeMime: true, filename: "ZanixonMD-FBDL-Media.mp4" });
             m.reply(thumb, null, { caption: `*Content Preview:*
 ➭ Judul: *${data.title}*` });
-            zanixon.sendMessage(m.id.remote, media, { quotedMessageId: m.id._serialized, sendMedicaption: data.title });
+            zanixon.sendMessage(m.id.remote, media, { quotedMessageId: m.id._serialized, sendMedicaption: data.title, sendMediaAsDocument: true, caption: `Ini video facebook nya kak!` });
             console.log("Success download facebook video:", JSON.stringify({
                 user: sender,
                 name: m._data.notifyName,

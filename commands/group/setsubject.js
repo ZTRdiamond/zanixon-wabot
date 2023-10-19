@@ -3,16 +3,21 @@ const { jsonformat } = require("../../lib/Function")
 
 module.exports = {
     name: "setsubject",
-    alias: ["setname"],
-    desc: "Change Group Name From Group",
+    aliases: ["setname"],
     type: "group",
-    example: "Example : %prefix%command <name>",
-    code: async(zanixon, m, { text }) => {
+    details: {
+        desc: "Digunakan untuk mengubah nama grup",
+        usage: "%prefix%command teks..."
+    },
+    code: async(zanixon, m, { zn, text, details }) => {
+        if(text === "") return m.reply(zn.emoji("alert") + `︱Mana teks nya?\nContoh: *${details.usage}*`);
         let chat = await m.getChat()
         chat.setSubject(text).then((res) => {
-            m.reply(jsonformat(res))
+            m.reply(zn.emoji("success") + `︱Berhasil mengubah nama grup!
+
+➭ Nama baru: *${text}*`)
         }).catch((err) => {
-            m.reply(jsonformat(err))
+            m.reply(zn.emoji("alert") + "︱Gagal mengubah nama grup!")
         })
     },
     isQuery: true,

@@ -8,7 +8,7 @@ const dir = path.join(process.cwd(), `./tmp/undefined.jpg`)
 
 module.exports = {
     name: "toimage",
-    alias:["toimg"],
+    aliases:["toimg"],
     desc: "Convert sticker to Image",
     type: "convert",
     code: async(zanixon, m, { zn, mime, quoted, sender }) => {

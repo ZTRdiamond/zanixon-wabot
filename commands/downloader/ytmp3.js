@@ -2,10 +2,12 @@ const { MessageMedia } = require("whatsapp-web.js");
 
 module.exports = {
     name: "ytmp3",
-    alias: ["yta"],
+    aliases: ["yta"],
     type: "downloader",
-    desc: "Download audio dari youtube",
-    example: "Example: %prefix%command https://youtu.be/3Xw-9OE1j-Y",
+    details: {
+        desc: "Download audio dari youtube",
+        usage: "%prefix%command https://youtu.be/3Xw-9OE1j-Y"
+    },
     code: async(zanixon, m, { readmore, zn, text, sender }) => {
         const ytdl = require("ytdl-core");
         const url = text;
@@ -29,13 +31,13 @@ module.exports = {
             const thumbnail = data.videoDetails.thumbnails.sort((a, b) => b.width - a.width).find((thumbnail) => thumbnail.width > 1000 || thumbnail.width > 700 || thumbnail.width > 600 || thumbnail.width > 500 || thumbnail.width > 400 || thumbnail.width > 300 || thumbnail.width > 200 || thumbnail.width > 100);
             const resAudio = sortedAudio[0];
             const fileSize = parseInt(resAudio.contentLength) / (1024 * 1024);
-            if(fileSize > 300) {
+            if(fileSize > 100) {
                 m.reply(zn.emoji("alert") + `︱Permintaan dibatalkan karena ukuran audio terlalu besar dari max 100mb standar whatsapp.
 
 *Media info:*
 ➭ Url: *${url}*
 ➭ Judul: *${info.title}*
-➭ Ukuran: *${fileSize}MB*
+➭ Ukuran: *${fileSize.toFixed(2)}MB*
 `);
                 return;
             }

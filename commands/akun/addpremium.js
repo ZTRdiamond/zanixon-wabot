@@ -1,8 +1,12 @@
 module.exports = {
     name: "addpremium",
-    alias: ["addprem"],
+    aliases: ["addprem"],
     type: "akun",
     isOwner: true,
+    details: {
+        desc: "Menambahkan user menjadi premium!",
+        usage: "%prefix%command opt|(duration: s, m, h, d, w, mo, y)"
+    },
     code: async(zanixon, m, { utils, prefix, zn, text, quoted }) => {
         let teks = text.split("|");
         let regex = /[@+]|@c\.us/g;

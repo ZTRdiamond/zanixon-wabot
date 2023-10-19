@@ -1,8 +1,11 @@
 module.exports = {
     name: "delpremium",
-    alias: ["delprem"],
+    aliases: ["delprem"],
     type: "akun",
     isOwner: true,
+    details: {
+        desc: "Menghapus user dari premium!"
+    },
     code: async(zanixon, m, { zn, text, quoted }) => {
         let teks = text.split("|");
         let regex = /[@+]|@c\.us/g;
@@ -12,7 +15,7 @@ module.exports = {
         let isPremium = zn.get("premium", user, null, true);
         let num = user.replace("@c.us", "");
         if(text === undefined) {
-            m.reply(zn.emoji("alert") + `︱Mana user yang akan dihapus premium nya?
+            return m.reply(zn.emoji("alert") + `︱Mana user yang akan dihapus premium nya?
 
 *Options:*
 ➭ mention

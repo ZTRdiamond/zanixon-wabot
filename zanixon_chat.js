@@ -40,7 +40,7 @@ module.exports = async (zanixon, m, commands) => {
         let isPublic = zn.get("public", null, "config", true);
         var prefix = [zn.get("prefix", m.id.remote, null, true) || zn.set("prefix", ".", sender, null, true)];
         const command = body.replace(prefix, '').trim().split(/ +/).shift().toLowerCase()
-        const cmd = commands.get(command) || Array.from(commands.values()).find((v) => v.alias.find((x) => x.toLowerCase() == command)) || "";
+        const cmd = commands.get(command) || Array.from(commands.values()).find((v) => v.aliases.find((x) => x.toLowerCase() == command)) || "";
         let isCmd = cmd.nonPrefix ? cmd.nonPrefix : body.startsWith(prefix);
         const detraw = cmd.details || { desc: "none", usage: "%prefix%command" };
         let usage = `${detraw.usage}`.replace(/%prefix/gi, prefix).replace(/%command/gi, command).replace(/%text/gi, text);
@@ -209,12 +209,13 @@ module.exports = async (zanixon, m, commands) => {
             m.reply(zn.limit("alert") + `︱Limit terpakai *1* dari *${zn.abbreviate(limit, "0.00a")}*`);
         }
         
-        let totalReq = zn.get("totalRequest", sender, null, false);
-        zn.set("totalRequest", totalReq + 1, sender, null, true);
+        let totalRequest = zn.get("totalRequest", sender, null, false);
+        zn.set("totalRequest", totalRequest + 1, sender, null, true);
         try {
             let cmdOptions = {
                 name: "ZTRdiamond",
                 limit,
+                totalRequest,
                 isPublic,
                 getRandom,
                 fetchBuffer, 

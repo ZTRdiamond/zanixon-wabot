@@ -3,10 +3,12 @@ const { jsonformat } = require("../../lib/Function")
 
 module.exports = {
     name: "kick",
-    alias: ["tendang"],
-    desc: "Remove User From Group",
+    aliases: ["tendang"],
     type: "group",
-    example: "Example : %prefix%command <tag>. <tag> = @62xxx",
+    details: {
+        desc: "Mengeluarkan user dari grup",
+        usage: "%prefix%command @user"
+    },
     code: async(zanixon, m, { zn, quoted, text, participants }) => {
         let chat = await m.getChat()
         let users = m.mentionedIds[0] ? m.mentionedIds : m.hasQuotedMsg ? [quoted.from] : [text.replace(/[^0-9]/g, '') + "@c.us"]

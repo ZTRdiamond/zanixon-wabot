@@ -1,8 +1,8 @@
 module.exports = {
-    name: "akun",
-    alias: ["limit"],
+    name: "limit",
+    aliases: ["akun"],
     type: "akun",
-    code: async(zanixon, m, { zn, sender, utils }) => {
+    code: async(zanixon, m, { zn, sender, utils, totalRequest }) => {
         let nick = m._data.notifyName;
         let limit = zn.get("limit", sender, null, true);
         let premium = zn.get("premium", sender, null, true) ? "🟢" : "🔴";
@@ -12,7 +12,8 @@ module.exports = {
 ➭ Premium: *${premium}* ${premiumTimer}
 ➭ Limit: *${zn.abbreviate(limit, "0.00a")}*
 ➭ Name: *${nick}*
-➭ Number: *${sender.replace("@c.us", "")}*`;
+➭ Number: *${sender.replace("@c.us", "")}*
+➭ Total Request: *${zn.abbreviate(totalRequest, "0.00a")}*`;
         m.reply(teks);
     }
 }

@@ -49,7 +49,7 @@ const loadCommands = () => {
              cmdCount++;
              let options = {
                  name: command.name ? command.name : "",
-                 alias: command.alias ? command.alias : [],
+                 aliases: command.aliases ? command.aliases : [],
                  details: command.details ? command.details : {
                      desc: "none",
                      usage: "none"

@@ -1,8 +1,10 @@
 module.exports = {
     name: "apakah",
-    desc: "Mengembalikan jawaban iya, tidak, mungkin, mungkin iya, mungkin tidak, bisa jadi....",
     type: "fun",
-    example: "*Example:* %prefix%command aku kaya?",
+    details: {
+        desc: "Mengembalikan jawaban iya, tidak, mungkin, mungkin iya, mungkin tidak, bisa jadi....",
+        usage: "%prefix%command aku kaya?"
+    },
     code: async(zanixon, m, { zn, parseMention, text }) => {
         //jawaban 
         const rawJawaban = ['Iya','Tidak','Mungkin','Mungkin iya','Mungkin tidak','Bisa jadi','Sangat mungkin','Tidak mungkin','Tidak akan'];

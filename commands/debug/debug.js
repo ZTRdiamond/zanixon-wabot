@@ -1,6 +1,6 @@
 module.exports = {
     name: "debug",
-    alias: ["debugging"],
+    aliases: ["debugging"],
     type: "debug",
     isOwner: true,
     isLimit: true,

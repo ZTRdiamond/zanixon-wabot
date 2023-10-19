@@ -3,7 +3,7 @@ const util = require("util")
 
 module.exports = {
     name: "exec",
-    alias: ["$","=<"],
+    aliases: ["$","=<"],
     desc: "Running Code terminal via Command",
     type: "owner",
     code: async(zanixon, m, { text }) => {

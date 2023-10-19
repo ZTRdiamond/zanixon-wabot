@@ -1,22 +1,17 @@
-const { MessageMedia } = require("whatsapp-web.js")
-const fs = require("fs")
-
 module.exports = {
     name: "hidetag",
-    alias: ["totag","tagall"],
-    desc: "Send Message With Tag All Participants",
-    disable: true,
-    hidden: true,
+    aliases: ["totag","tagall"],
+    details: {
+        desc: "Kirim pesan dengan mention seluruh member di grup, command ini support gambar!",
+    },
     type: "group",
-    start: async(zanixon, m, { participants, quoted, text }) => {
-        let _participants = participants.map(v => v.id._serialized)
-        let mentions = []
-        for (let jid of _participants) mentions.push(await zanixon.getChatById(jid))
-        if (m.hasMedia) {
-            let message = await quoted.downloadMedia()
-            zanixon.sendMessage(m.from, message, { mentions })
+    code: async(zanixon, m, { zn, participants, quoted, prefix, command }) => {
+        let text = `${quoted.body}`.replace(prefix + command, "") || `${m.body}`.replace(prefix + command, "");
+        if(quoted.hasMedia) {
+            let media = await quoted.downloadMedia();
+            zanixon.sendMessage(m.id.remote, media, { quotedMessageId: m.id._serialized, caption: text || "", mentions: participants.map(a => a.id._serialized) });
         } else {
-            zanixon.sendMessage(m.from, text, { mentions })
+            zanixon.sendMessage(m.id.remote, text || "", { quotedMessageId: m.id._serialized, mentions: participants.map(a => a.id._serialized) });
         }
     },
     isGroup: true,

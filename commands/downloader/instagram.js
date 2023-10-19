@@ -2,7 +2,7 @@ const { MessageMedia } = require("whatsapp-web.js");
 
 module.exports = {
     name: "instagram",
-    alias: ["ig","igdl","instagramdl"],
+    aliases: ["ig","igdl","instagramdl"],
     type: "downloader",
     code: async(zanixon, m, { text, zn, sender }) => {
         const { igApi, getCookie } = require("insta-fetcher");
@@ -36,8 +36,8 @@ module.exports = {
 ➭ Media count: *${now + 1}/${res.media_count}*
 ➭ Type: *${data.type}*
 ➭ Dimension: *${data.dimensions.height}x${data.dimensions.width}*`;
-                        let media = await MessageMedia.fromUrl(url, { unsafeMime: true });
-                        zanixon.sendMessage(m.id.remote, media, { quotedMessageId: m.id._serialized, caption: teks });
+                        let media = await MessageMedia.fromUrl(url, { unsafeMime: true, filename: `ZanixonMD-IGDL-Media_${now}` });
+                        zanixon.sendMessage(m.id.remote, media, { quotedMessageId: m.id._serialized, caption: teks, sendMediaAsDocument: true });
                         now++;
                         setTimeout(igdl, 15000);
                     }

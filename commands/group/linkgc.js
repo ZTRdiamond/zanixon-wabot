@@ -1,8 +1,10 @@
 module.exports = {
     name: "linkgroup",
-    alias: ["linkgc","linkinvite"],
-    desc: "Get Link Group",
+    aliases: ["linkgc","linkinvite"],
     type: "group",
+    details: {
+        desc: "Mengambil link invite grup"
+    },
     code: async(zanixon, m, { zn }) => {
         let chat = await m.getChat()
         if (chat.isGroup) {

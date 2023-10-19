@@ -2,10 +2,12 @@ const axios = require('axios');
 
 module.exports = {
   name: "simi",
-  alias: ["simsimi"],
-  desc: "Mengobrol dengan chatbot bernama simi",
-  example: "Example: %prefix%command <on|off|pertanyaan>",
+  aliases: ["simsimi"],
   type: "fun",
+  details: {
+      desc: "Mengobrol dengan chatbot bernama simi",
+      usage: "%prefix%command (on/off atau pertanyaan)"
+  },
   code: async (zanixon, m, { zn, prefix, command, sender }) => {
     const commands = ["simi", "simsimi"];
     const msgBody = m.body;
