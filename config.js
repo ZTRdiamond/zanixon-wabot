@@ -57,7 +57,7 @@ zn.regEmoji({
     "failed":"❌",
     "alert":"❗",
     "warn":"⚠️",
-    "error":"😵",
+    "error":"🚨",
     "wait":"⏱️",
     //economy 
     "health":"♥️",
@@ -82,7 +82,7 @@ global.APIs = {
 
 // Apikey
 global.APIKeys = {
-	'https://xzn.wtf': 'ztrdiamond',
+	'https://xzn.wtf': 'YOURAPIKEY',
 }
 
 // Other
@@ -110,7 +110,8 @@ global.options = {
     public: zn.get("public", null, "config", true)
 }
 
-global.owner = ["6285888213719","62856971039020"]
+global.botname = "ZanixonMD"
+global.owner = ["19282571929","62856971039020"]
 global.sessionName = "zanixon"
 global.packname = zn.get("stickerPackname", null, "config", true);
 global.author = zn.get("stickerAuthor", null, "config", true);

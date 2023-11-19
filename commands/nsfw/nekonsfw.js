@@ -15,7 +15,7 @@ module.exports = {
             nekos = res.data.url;
             /*let media = await MessageMedia.fromUrl(nekos)
             m.reply(media, null, { caption:'Ini neko sus nya kak!' });*/ 
-            m.reply(`Ini neko sus nya kak!\n${nekos}`);
+            m.reply(`*Ini foto neko nsfw nya!*\n➭ Url: ${nekos}`);
         } catch (error) {
             console.error('Error at get neko nsfw image: ' + error);
             m.reply(`${zn.emoji("failed")}│Gagal mengirim gambar neko!`);

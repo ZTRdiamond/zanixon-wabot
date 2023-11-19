@@ -15,7 +15,7 @@ module.exports = {
           const coser = res.data[utils.random(1, 269)];
           /*const media = await MessageMedia.fromUrl(coser.url, { unsafeMime: true });
           m.reply(media, null, { caption: 'Ini foto cosplay nya kak!' });*/
-          m.reply(`Ini foto cosplay sus nya kak!\n${coser.url}`);
+          m.reply(`*Ini foto cosplay nsfw nya!*\n➭ Url: ${coser.url}`);
         } catch (error) {
           console.error('Error at get cosplay nsfw image: ' + error);
           m.reply(`${zn.emoji("failed")}│Gagal mengirim gambar cosplay!`);

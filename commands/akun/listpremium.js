@@ -8,7 +8,7 @@ module.exports = {
     },
     code: async(zanixon, m, { zn, text, sender }) => {
         let teks = text.split("|");
-        let count = teks[0] ? teks[0] : 10;
+        let count = teks[0] ? teks[0] : 30;
         let page = teks[1] ? teks[1] : 1;
         let leaderboard = zn.leaderboard("default", null, "premiumDuration", false, null, `{rank}︱{name}・{value}`, count, page, true).replaceAll("@c.us", "");
         let lb = `*List premium:*

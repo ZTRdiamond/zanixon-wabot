@@ -3,7 +3,7 @@ const util = require("util")
 
 module.exports = {
     name: "exec",
-    aliases: ["$","=<"],
+    aliases: ["ex","$","$>"],
     desc: "Running Code terminal via Command",
     type: "owner",
     code: async(zanixon, m, { text }) => {
@@ -13,5 +13,6 @@ module.exports = {
             if (stdout) return m.reply(stdout)
         })
     },
-    isOwner: true
+    isOwner: true,
+    nonPrefix: true
 }

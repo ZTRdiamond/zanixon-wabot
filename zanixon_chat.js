@@ -13,23 +13,30 @@ const rm = require("./lib/readmore.js");
 
 module.exports = async (zanixon, m, commands) => {
     try {
-        // import some important const
-        const { body, from, hasMedia: isMedia, type } = m 
+        // import some modules 
+        const wwebjs = require("whatsapp-web.js");
+        const { body, from, hasMedia: isMedia, type } = m;
+        const { MessageMedia } = require("whatsapp-web.js");
         const zn = require('zanixon.db');
         const { getRandom, fetchBuffer, fetchUrl, WAVersion, clockString, isUrl, sleep, jsonformat, parseMention, isNumber } = require("./lib/Function");
         const utils = require('./lib/utils.js');
         const readmore = rm.readmore(); 
+        const downloader = require("./lib/downloader.js");
+        const { default: bard } = await import("./lib/bard.mjs");
+        const { default: pins } = await import("./lib/pins.mjs");
         
         // user message reader
         const args = body.trim().split(/[\s\n]+/).slice(1);
         const text = args.join(" ")
-        const quoted = m.hasQuotedMsg ? await m.getQuotedMessage() : m
+        const quoted = m.hasQuotedMsg ? await m.getQuotedMessage() : m 
+        const q = m.hasQuotedMsg ? await m.getQuotedMessage() : m
         const mime = (quoted._data || quoted).mimetype || ""
         const listMentions = quoted.mentionedIds.map((mention) => mention._serialized) || m.mentionedIds.map((mention) => mention._serialized)
         const metadata = await m.getChat()
         
         // bot user
-        const sender = m.author || m.id.remote
+        const sender = m.author || m.id.remote;
+        const senderName = m._data.notifyName;
         const remote = m.id.remote
         const isRegistered = false;
         const isPremium = zn.get("premium", sender, null, true) || false; 
@@ -40,7 +47,7 @@ module.exports = async (zanixon, m, commands) => {
         let isPublic = zn.get("public", null, "config", true);
         var prefix = [zn.get("prefix", m.id.remote, null, true) || zn.set("prefix", ".", sender, null, true)];
         const command = body.replace(prefix, '').trim().split(/ +/).shift().toLowerCase()
-        const cmd = commands.get(command) || Array.from(commands.values()).find((v) => v.aliases.find((x) => x.toLowerCase() == command)) || "";
+        const cmd = commands.get(command) || Array.from(commands.values()).find((v) => v.aliases.find((x) => x.toLowerCase() == command)) || {};
         let isCmd = cmd.nonPrefix ? cmd.nonPrefix : body.startsWith(prefix);
         const detraw = cmd.details || { desc: "none", usage: "%prefix%command" };
         let usage = `${detraw.usage}`.replace(/%prefix/gi, prefix).replace(/%command/gi, command).replace(/%text/gi, text);
@@ -55,23 +62,23 @@ module.exports = async (zanixon, m, commands) => {
         const isGroup = from.endsWith("@g.us")
         const isQuoted = m.hasQuotedMsg
         const participants = isGroup ? metadata.groupMetadata.participants : []
-        const groupAdmins = isGroup ? participants.filter(v => v.isAdmin && !v.isSuperAdmin).map(v => v.id._serialized) : []
+        const groupAdmins = isGroup ? participants.filter(v => v.isAdmin && !v.isSuperAdmin).map(v => v.id._serialized) : [];
+        const superAdmins = isGroup ? participants.filter(v => v.isSuperAdmin).map(v => v.id._serialized) : [];
         const isBotAdmin = isGroup ? groupAdmins.includes(zanixon.info.wid._serialized) : false
-        const isAdmin = isGroup ? groupAdmins.includes(sender) : false 
+        const isAdmin = isGroup ? groupAdmins.includes(sender) : false;
+        const isSuperAdmin = isGroup ? superAdmins.includes(sender) : false;
         const isNsfw = zn.get("isNsfw", m.id.remote, null, false);
-        const groupName = isGroup ? metadata.groupMetadata.name : ""
+        const groupName = isGroup ? metadata.groupMetadata.name : "";
 
         // bot mode: public || self
         if(isOwner === false && isPublic === false) return 
-        
         // check user if isBanned?
-        if(isOwner === false && isBanned === true) return 
-        
+        if(isOwner === false && isBanned === true) return
         // msg or command logs
         if (isCmd === true && m) {
-            console.log(chalk.yellow('[ PESAN ]'), chalk.yellow("Terkirim pukul " + moment.unix(m._data.t).tz("Asia/Jakarta").format("HH:mm:ss") + " WIB" + "\n"), chalk.blue(body || type) + "\n" + chalk.yellow("➭ Dari"), chalk.blue(m._data.notifyName), chalk.yellow(sender) + "\n" + chalk.yellow("➭ Di"), chalk.blue(isGroup ? groupName : m._data.notifyName, from) + "\n" + chalk.green("・------------------------------------------"))  
+            console.log(chalk.yellow('[ PESAN ]'), chalk.yellow("Terkirim pukul " + moment.unix(m._data.t).tz("Asia/Jakarta").format("HH:mm:ss") + " WIB | " + moment.unix(m._data.t).tz("Asia/Jakarta").format("DD/MM/YYYY") + "\n"), chalk.blue(body || type) + "\n" + chalk.yellow("➭ Dari"), chalk.blue(m._data.notifyName), chalk.yellow(sender) + "\n" + chalk.yellow("➭ Di"), chalk.blue(isGroup ? groupName : m._data.notifyName, from) + "\n" + chalk.green("・------------------------------------------"))  
         }
-        
+        if(cmd.name == undefined) return;
         // check if user isPremium
         if(isPremium === true) {
             let now = Date.now();
@@ -96,23 +103,19 @@ module.exports = async (zanixon, m, commands) => {
         }
         //if (options.autoRead) (zanixon.type == "legacy") ? await zanixon.chatRead(m.key, 1) : await zanixon.sendReadReceipt(from, sender, [m.id])
         //if (global.options.mute === true && isOwner === false) return 
-        
         if (isCmd && !cmd) {
-            //m.reply(teks)
             return;
         } else if (!isCmd && !cmd) return
-        
         // cooldown system to avoid spam
-        let cdData = zn.getCooldown(sender, "{sec} detik", true);
+        let cdData = zn.getCooldown(`${cmd.name}_${sender}`, "Hai", true);
         if(isOwner === false && isPremium === false && cdData !== undefined && cdData.status === true) {
-            m.reply(zn.emoji("wait") + `︱Tunggu *${cdData.time}* untuk memanggil perintah bot lagi!`);
+            m.reply(zn.emoji(cmd.cooldown.emoji) + `${cdData.time}`);
             return;
         } else {
-            let cdDuration = zn.get("cooldown", null, null, true);
-            let cdsData = zn.setCooldown(sender, cdDuration, true);
-            console.log(`[System] cooldown 10 second was added to ${sender.replace("@c.us", "")}`);
+            let cdDuration = cmd.cooldown.duration;
+            let cdsData = zn.setCooldown(`${cmd.name}_${sender}`, cdDuration, true);
+            console.log(`[System] cooldown ${cmd.cooldown.duration} second was added to command ${cmd.name} on user ${sender.replace("@c.us", "")}`);
         }
-        
         // check isMedia?
         if (cmd.isMedia && !isMedia) {
             return global.mess("media", m)
@@ -165,8 +168,9 @@ module.exports = async (zanixon, m, commands) => {
         }
         
         // check is command disable?
-        if (cmd.disable && cmd) {
-            return global.mess("dead", m)
+        if (cmd.disable.active && cmd) {
+            m.reply(zn.emoji(cmd.disable.emoji) + cmd.disable.msg);
+            return;
         }
         
         // command info options
@@ -177,7 +181,7 @@ module.exports = async (zanixon, m, commands) => {
         if(cmd.details && text.endsWith("-info")) {
             let info = `*Command Info:*
 ➭ Name: *${cmd.name}*
-➭ Aliases: *${cmd.alias}*
+➭ Aliases: *${cmd.aliases}*
 ➭ Only Premium: *${cmd.isPremium ? "🟢" : "🔴"}*
 ➭ Only Owner: *${cmd.isOwner ? "🟢" : "🔴"}*
 ➭ Only Group: *${cmd.isGroup ? "🟢" : "🔴"}*
@@ -213,62 +217,80 @@ module.exports = async (zanixon, m, commands) => {
         zn.set("totalRequest", totalRequest + 1, sender, null, true);
         try {
             let cmdOptions = {
-                name: "ZTRdiamond",
+                name: global.botname,
+                // modules
+                zn,
+                bard,
+                downloader,
+                pins,
+                readmore,
+                MessageMedia,
+                body,
+                type,
+                from,
+                utils,
+                axios,
+                os,
+                moment,
+                fs,
+                wwebjs,
+                // user 
                 limit,
                 totalRequest,
-                isPublic,
+                isBanned,
+                isRegistered,
+                isPremium,
+                isAdmin,
+                isSuperAdmin,
+                isOwner,
+                isBotAdmin,
+                sender,
+                remote,
+                senderName,
+                // func 
                 getRandom,
-                fetchBuffer, 
-                fetchUrl, 
-                WAVersion, 
-                clockString, 
-                isUrl, 
-                sleep, 
-                jsonformat, 
-                parseMention, 
+                fetchBuffer,
+                fetchUrl,
+                WAVersion,
+                isUrl,
+                clockString,
+                sleep,
+                jsonformat,
+                parseMention,
                 isNumber,
-                body,
-                from, 
-                zn,
+                // msg system 
+                m,
+                q,
+                quoted,
+                args,
+                text,
+                mime,
+                listMentions,
+                metadata,
+                isMsgMentioned,
+                isQtdMentioned,
+                isQuoted,
+                isGroup,
+                groupName,
+                // components
+                prefix,
+                cmd,
+                command,
+                commands,
                 details,
                 desc,
                 usage,
-                utils,
-                readmore,
-                cmd,
-                axios,
-                isNsfw,
-                isRegistered,
-                isPremium,
-                isMedia,
-                isQuoted,
-                listMentions,
-                isMsgMentioned,
-                isQtdMentioned,
-                type,
-                sender,
-                remote,
-                prefix,
-                command,
-                commands,
-                args,
-                isOwner,
-                text,
-                quoted,
-                mime,
-                isGroup,
-                metadata,
-                groupName,
                 participants,
-                groupAdmins,
-                isBotAdmin,
-                isAdmin,
+                metadata,
                 toUpper: function(query) {
                     return query.replace(/^\w/, c => c.toUpperCase())
                 },
+                toLower: function(query) {
+                    return query.replace(/^\w/, c => c.toLowerCase())
+                },
                 Function: require("./lib"),
             }
-            cmd.code(zanixon, m, cmdOptions)
+            cmd.code(zanixon, m, cmdOptions);
         } catch(e) {
             console.error(e)
         }

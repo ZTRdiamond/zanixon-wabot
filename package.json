@@ -1,6 +1,6 @@
 {
   "name": "zanixon-games-md",
-  "version": "2.1.5",
+  "version": "2.2.6",
   "description": "Whatsapp bot with some features",
   "main": "index.js",
   "scripts": {
@@ -18,16 +18,20 @@
     "whatsapp-web.js",
     "zanixon-md",
     "whatsapp-bot",
-    "zanixon"
+    "zanixon",
+    "zanixon-wabot"
   ],
   "author": "ZTRdiamond",
   "license": "MIT",
   "dependencies": {
+    "@myno_21/pinterest-scraper": "^1.0.4",
     "@tobyg74/tiktok-api-dl": "^1.0.4",
     "@wppconnect/wa-js": "^2.27.0",
     "@xaviabot/fb-downloader": "^1.0.14",
     "axios": "^0.26.1",
+    "bard-ai": "^2.0.3",
     "body-parser": "^1.20.2",
+    "btch-downloader": "^2.3.1-alpha",
     "chalk": "^4.1.2",
     "cheerio": "^1.0.0-rc.10",
     "child_process": "^1.0.2",
@@ -43,10 +47,11 @@
     "pump": "^3.0.0",
     "qrcode": "^1.4.4",
     "qrcode-terminal": "^0.12.0",
+    "string": "^3.3.3",
     "support-color": "^7.1.0",
     "supports-color": "^9.4.0",
     "util": "^0.12.4",
-    "whatsapp-web.js": "^1.22.2-alpha.3",
+    "whatsapp-web.js": "github:caliphdev/wwjs",
     "yargs": "^17.4.1",
     "yt-search": "^2.10.4",
     "ytdl-core": "^4.11.5",

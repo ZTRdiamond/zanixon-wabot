@@ -1,6 +1,6 @@
 module.exports = {
     name: "unbanned",
-    alias: ["unban"],
+    aliases: ["unban"],
     type: "akun",
     isOwner: true,
     details: {

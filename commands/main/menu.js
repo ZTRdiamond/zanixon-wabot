@@ -13,13 +13,13 @@ module.exports = {
         if (args[0]) {
             let data = []
             let name = args[0].toLowerCase()
-            let cmd = commands.get(name) || Array.from(commands.values()).find((v) => v.alias.includes(name))
+            let cmd = commands.get(name) || Array.from(commands.values()).find((v) => v.aliases.includes(name))
             if (!cmd || cmd.disable == true) {
                 return m.reply("No Command Found")
             } else {
                 let info = `*Command Info:*
 ➭ Name: *${cmd.name}*
-➭ Aliases: *${cmd.alias}*
+➭ Aliases: *${cmd.aliases}*
 ➭ Only Premium: *${cmd.isPremium ? "🟢" : "🔴"}*
 ➭ Only Owner: *${cmd.isOwner ? "🟢" : "🔴"}*
 ➭ Only Group: *${cmd.isGroup ? "🟢" : "🔴"}*
@@ -38,7 +38,7 @@ module.exports = {
                    let filt = commands.list[type].filter(v => v.disable !== true).map((cmd) => {
                        let prem = cmd.isPremium ? "🄿" : "";
                        let lim = cmd.isLimit ? "🄻" : "";
-                       return `┃ ❧ ${prefix + cmd.name} ${prem + lim}` 
+                       return `┃ ❧ ${prefix + cmd.name} ${lim + prem}` 
                    });
                    let list = filt.sort();
                    teks += `\n╭╼━「 *${toUpper(type)}* 」\n`

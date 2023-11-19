@@ -15,7 +15,7 @@ module.exports = {
              lolis = res.data.data[0];
              /*let media = await MessageMedia.fromUrl(lolis.urls.original)
              m.reply(media, null, { caption:'Ini loli sus nya kak!' });*/
-             m.reply(`Ini loli sus nya kak!\n${lolis.urls}`);
+             m.reply(`Ini loli nsfw nya kak!\n➭ Url: *${lolis.urls}*`);
         } catch (error) {
              console.error('Error at get loli nsfw image: ' + error);
              m.reply(`${zn.emoji("failed")}│Gagal mengirim gambar loli!`);

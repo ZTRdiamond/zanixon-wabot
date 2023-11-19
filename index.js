@@ -24,7 +24,7 @@ app.post('/payment/add/:id', (req, res) => {
     res.json({msg: "success!", id: id, data: [data]});
 });
 
-let port = process.env.PORT || 9000
+let port = process.env.PORT || 9030
 app.listen(port, () => {
     console.log(`App started on port ${port}`);
 });
@@ -54,6 +54,12 @@ const loadCommands = () => {
                      desc: "none",
                      usage: "none"
                  },
+                 cooldown: command.cooldown ? command.cooldown : {
+                     duration: 10,
+                     msg: "︱Tunggu *{sec} detik* untuk memanggil perintah bot lagi!",
+                     emoji: "wait"
+                 },
+                 disable: command.disable ? command.disable : { active: false, msg: "︱This command is on disable mode!", emoji: "alert" },
                  type: command.type ? command.type : "others",
                  isMedia: command.isMedia ? command.isMedia : false,
                  isNsfw: command.isNsfw ? command.isNsfw : false,
@@ -64,7 +70,7 @@ const loadCommands = () => {
                  isAdmin: command.isAdmin ? command.isAdmin : false,
                  isBot: command.isBot ? command.isBot : false,
                  isPremium: command.isPremium ? command.isPremium : false,
-                 disable: command.disable ? command.disable : false,
+                 isLimit: command.isLimit ? command.isLimit : false,
                  isQuery: command.isQuery ? command.isQuery : false,
                  isRegistered: command.isRegistered ? command.isRegistered : false,
                  nonPrefix: command.nonPrefix ? command.nonPrefix : false,
@@ -79,7 +85,8 @@ const loadCommands = () => {
                  listType.push(theType);
              }
              global.reloadFile(file)
-             console.log("ZanixonMD:".zanixon, `Loaded ${command.name}`.warn, `\n➭ status: ${command.disable ? "Disable 🔴" : "Active 🟢"}\n➭ Type: ${groups}\n➭ Location: ${file.replace(__dirname, "")}`.debug, `\n・------------------------------------------`.info);
+             // block this code below to hide loaded command logs 
+             console.log("ZanixonMD:".zanixon, `Loaded ${options.name}`.warn, `\n➭ status: ${options.disable.active ? "Disable 🔴" : "Active 🟢"}\n➭ Type: ${groups}\n➭ Location: ${file.replace(__dirname, "")}`.debug, `\n・------------------------------------------`.info);
         })
         zn.set("commandCount", cmdCount, null, null, true);
         console.log(`Success load ${cmdCount} commands from "./commands" directory`.info);

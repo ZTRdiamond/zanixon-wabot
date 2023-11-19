@@ -8,9 +8,8 @@ module.exports = {
     type: "anime",
     code: async(zanixon, m, { axios, zn, text }) => {
          try {
-             let neko;
              const response = await axios.get('https://api.waifu.pics/sfw/neko');
-             neko = response.data.url;
+             let neko = response.data.url;
              let media = await MessageMedia.fromUrl(neko)
              m.reply(media, null, { caption:'Ini neko nya kak!'});
         } catch (error) {

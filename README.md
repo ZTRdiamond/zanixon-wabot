@@ -54,7 +54,7 @@ This bot has several useful features
 
 ## Create new command
 
-You can put the file everywhere inside `./commands/` folder
+You can put the file everywhere inside `./commands/` folder, with this system the command becomes more organized and neat. the `type` option specifies the category of the command so that commands are merged and more organized!
 
 ```javascript
 module.exports = {
@@ -72,13 +72,23 @@ module.exports = {
     isBotAdmin: boolean,
     isBot: boolean,
     isRegistered: boolean,
-    disable: boolean,
+    cooldown: { duration: 10, msg: `Please wait, You can call this cmd in {hour}h {min}m {sec}s again!` },
+    disable: { active: true, msg: "This command is on disable mode!", emoji: "alert" },
     details: { desc: "bla bla bla", usage: "%prefix%command" },
     code: async(zanixon, m, { commandOptions }) => {
         // ur code here
     }
 }
 ```
+## Thanks for
+- God
+- [Pedro S Lopez](https://npmjs.com/package/whatsapp-web.js) - Library
+- [Dika Ardianta](https://github.com/Hisoka-Morrou/hisoka-waweb.js) - Base
+- [ZTRdiamond](https://github.com/ZTRdiamond) - Continued development
+
+## Special Thanks
+A big thank you to our sponsor **Bang Jeri** who has sponsored the **ZanixonMD** bot all this time, Thanks to him this bot can continue to grow and also encourages me as a developer who develops this bot further. Thank you so much for your support!!!
+
 ---
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://github.com/ZTRdiamond/zanixon-wabot">Zanixon Wabot</a> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://github.com/ZTRdiamond">ZTRdiamond</a> is licensed under <a href="http://creativecommons.org/licenses/by-nc/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1"></a></p>
 

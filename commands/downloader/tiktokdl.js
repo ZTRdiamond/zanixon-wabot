@@ -8,30 +8,23 @@ module.exports = {
         desc: "Download video tiktok tanpa watermark",
         usage: "%prefix%command https://vm.tiktok.com/ZMjDmLgCT/"
     },
-    code: async(zanixon, m, { sender, zn, text, readmore }) => {
-        const tiktok = require("@tobyg74/tiktok-api-dl");
+    code: async(zanixon, m, { downloader, sender, zn, text, readmore }) => {
         const url = text;
         if(url.length === 0) {
             m.reply(zn.emoji("alert") + "︱Mana link video tiktok nya? \n Contoh: *.tiktok https://vm.tiktok.com/ZMjDmLgCT/*");
             return;
         }
         try {
-            const res = await tiktok.TiktokDL(url);
-            let data = res.result;
+            const res = await downloader.ttdl(url);
+            let data = res.data;
             let type = data.type;
-            if(data === undefined) {
-                m.reply(zn.emoji("failed") + "︱Gagal mendapatkan media, mungkin url tidak valid!");
+            if(res.status === false) {
+                m.reply(zn.emoji("failed") + "︱Gagal mendownload video tiktok, pastikan url/link tiktok sudah benar!");
                 return;
             }
             m.reply(zn.emoji("wait") + "︱Tunggu sebentar, permintaan serang diproses!");
             //let mediaCount = data.video.length || data.images.length;
-            let caption = `*Info Akun:*
-➭ Username: *${data.author.username}*
-➭ Nickname: *${data.author.nickname}*
-➭ From: *${data.author.region}*
-➭ Bio: *${data.author.signature}*
-
-*Info Postingan:*
+            let caption = `*Post Info:*
 ➭ Type: *${type}*
 ➭ View: *${zn.abbreviate(data.statistics.playCount, '0.00a')}*
 ➭ Like: *${zn.abbreviate(data.statistics.likeCount, '0.00a')}*

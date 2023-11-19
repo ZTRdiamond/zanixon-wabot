@@ -15,7 +15,7 @@ module.exports = {
             waifus = res.data.url;
             /*let media = await MessageMedia.fromUrl(nekos)
             m.reply(media, null, { caption:'Ini waifu sus nya kak!' });*/ 
-            m.reply(`Ini waifu sus nya kak!\n${waifus}`);
+            m.reply(`*Ini foto waifu nsfw nya!*\n➭ Url: ${waifus}`);
         } catch (error) {
             console.error('Error at get waifu nsfw image: ' + error);
             m.reply(`${zn.emoji("failed")}│Gagal mengirim gambar neko!`);
