@@ -1,6 +1,6 @@
 {
   "name": "zanixon-games-md",
-  "version": "2.2.6",
+  "version": "2.2.7",
   "description": "Whatsapp bot with some features",
   "main": "index.js",
   "scripts": {

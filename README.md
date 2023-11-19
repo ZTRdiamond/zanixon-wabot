@@ -72,8 +72,8 @@ module.exports = {
     isBotAdmin: boolean,
     isBot: boolean,
     isRegistered: boolean,
-    cooldown: { duration: 10, msg: `Please wait, You can call this cmd in {hour}h {min}m {sec}s again!` },
-    disable: { active: true, msg: "This command is on disable mode!", emoji: "alert" },
+    cooldown: { duration: 10, msg: `Please wait, You can call this cmd in {hour}h {min}m {sec}s again!`, emoji: "wait" },
+    disable: { active: false /* default: false */, msg: "This command is on disable mode!", emoji: "alert" },
     details: { desc: "bla bla bla", usage: "%prefix%command" },
     code: async(zanixon, m, { commandOptions }) => {
         // ur code here
@@ -87,7 +87,10 @@ module.exports = {
 - [ZTRdiamond](https://github.com/ZTRdiamond) - Continued development
 
 ## Special Thanks
-A big thank you to our sponsor **Bang Jeri** who has sponsored the **ZanixonMD** bot all this time, Thanks to him this bot can continue to grow and also encourages me as a developer who develops this bot further. Thank you so much for your support!!!
+A big thank you to our sponsor **Bang Jeri** who has sponsored the **ZanixonMD** bot all this time, Thanks to him this bot can continue to grow and also encourages me as a developer who develops this bot further. Thank you so much for all your [support](https://github.com/ZTRdiamond/zanixon-wabot/blob/main/DONATORS.md)
+
+## Support Us
+<a href="https://trakteer.id/zanixongroup/tip?quantity=15" target="_blank"><img id="wse-buttons-preview" src="https://cdn.trakteer.id/images/embed/trbtn-red-1.png?date=18-11-2023" height="60" style="border:0px;height:60px;" alt="Trakteer Saya"></a>
 
 ---
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://github.com/ZTRdiamond/zanixon-wabot">Zanixon Wabot</a> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://github.com/ZTRdiamond">ZTRdiamond</a> is licensed under <a href="http://creativecommons.org/licenses/by-nc/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1"></a></p>
