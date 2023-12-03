@@ -111,7 +111,7 @@ global.options = {
 }
 
 global.botname = "ZanixonMD"
-global.owner = ["19282571929","62856971039020"]
+global.owner = ["6285697103902"]
 global.sessionName = "zanixon"
 global.packname = zn.get("stickerPackname", null, "config", true);
 global.author = zn.get("stickerAuthor", null, "config", true);

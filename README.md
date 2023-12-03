@@ -1,6 +1,6 @@
 ![Zanixon Wabot](https://pomf2.lain.la/f/z2o65gj.png)
 
-# ZanixonMD - Whatsapp Bot
+# ZanixonMD - Whatsapp Bot (Archived)
 
 A simple whatsapp bot using command handler to manage the commands easily and have some useful features
 
@@ -10,6 +10,10 @@ A simple whatsapp bot using command handler to manage the commands easily and ha
 ## Information
 
 This is a recoded bot from bot [hisoka-waweb.js](https://github.com/Hisoka-Morrou/hisoka-waweb.js), the parts that I recode are quite a lot, especially the command handler which I changed so that it can read files in subfolder and change the command categorization from folder to `command.type` from the command option, this bot code is still quite stable running on [wwebjs](https://github.com/pedroslopez/whatsapp-web.js) so I recode it.
+
+**Note:**
+> This bot source will no longer update because i have so much errors from the [modules](https://github.com/pedroslopez/whatsapp-web.js) and i cant debug the bot from my phone, then i rework the bot and make a new using [baileys](https://github.com/whiskeysockets/baileys)
+
 ## Installation
 
 How to install the bot
